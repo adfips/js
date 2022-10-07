@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hamming code</title>
+    <script>
+        function code1() {
+            replace = (str, index, symbol) => str.slice(0, index) + symbol + str.slice(index + symbol.length)
+            function addControlBit(strInput, arrayContBit = []) { //собираем рассширенную строку(с контрольными битами)
+                for (let i = 0, c = 0; i < strInput.length; i++) {
+                    if (i === 2 ** c - 1) {
+                        strInput = strInput.slice(0, i) + "0" + strInput.slice(i); // ставим на места контрольных юитов 0
+                        arrayContBit.push(2 ** c - 1); // добавляем в массив индексы котрольных битов
+                        c++;
+                    }
+                }
+                let strInput1 = strInput.slice(0);
+                for (let i = 0, c = 1; i < arrayContBit.length; i++, c++) { //цикл проходится по массиву с котрольными битами, где с степень двойки
+                    let sum = 0;
+                    for (let j = arrayContBit[i]; j < strInput.length; j += 2 ** c) {//цикл проходится по массиву со всеми числами от 2**(с-1),(arrayContBit[i]) до конца с шагом 2**с
+                        for (let y = 0; 2**(c-1) !== y && j + y < strInput.length; y++) {//цикл проходится по с элементам через с элементов и суммирует их
+                            sum += Number(strInput[j + y]);
+                        }
+                    }
+                    strInput1 = replace(strInput1, arrayContBit[i], String(sum % 2));//заменяем 0 на контрольные биты
+                }
+                return strInput1
+            }
+
+            let strInput = document.getElementById("IM").value;
+            document.getElementById("encoded").value = addControlBit(strInput);
+        }
+        function code2(){
+            replace = (str, index, symbol) => str.slice(0, index) + symbol + str.slice(index + symbol.length)
+            function addControlBit(strInput, arrayContBit = []) {
+                for (let i = 0, c = 0; i < strInput.length; i++) { //собираем рассширенную строку(с контрольными битами)
+                    if (i === 2 ** c - 1) {
+                        strInput = strInput.slice(0, i) + "0" + strInput.slice(i); // ставим на места контрольных юитов 0
+                        arrayContBit.push(2 ** c - 1); // добавляем в массив индексы котрольных битов
+                        c++;
+                    }
+                }
+                let strInput1 = strInput.slice(0);
+                for (let i = 0, c = 1; i < arrayContBit.length; i++, c++) { //цикл проходится по массиву с котрольными битами, где с степень двойки
+                    let sum = 0;
+                    for (let j = arrayContBit[i]; j < strInput.length; j += 2 ** c) {//цикл проходится по массиву со всеми числами от 2**(с-1),(arrayContBit[i]) до конца с шагом 2**с
+                        for (let y = 0; 2**(c-1) !== y && j + y < strInput.length; y++) {//цикл проходится по с элементам через с элементов и суммирует их
+                            sum += Number(strInput[j + y]);
+                        }
+                    }
+                    strInput1 = replace(strInput1, arrayContBit[i], String(sum % 2));//заменяем 0 на контрольные биты
+                }
+                return strInput1
+            }
+            function delControlBit(strInput,strBit="",arrayContBit=[]){//удаляем из строки контрольные биты
+                for (let i = 0, c = 0; i < strInput.length; i++) {
+                    if (i === (2 ** c - 1)) {
+                        arrayContBit.push(2 ** c - 1);
+                        c++;
+                        continue
+                    }
+                    strBit += strInput[i];
+                }
+                return strBit
+            }
+            strInput = document.getElementById("encoded").value;
+            let b = addControlBit(delControlBit(strInput))
+            let indexError = 0;
+            let k = 0;
+            for(let i in strInput){
+                if (strInput[i]!==b[i]){
+                    indexError += Number(i)+1;
+                    k++
+                }
+            }
+            if (k!==0){
+                b[indexError-1] === "0" ? b = replace(b, indexError-1, "1") : b = replace(b, indexError-1, "0");
+            }
+            document.getElementById("decodedCorrect").value = delControlBit(b);
+            document.getElementById("decodedError").value =  addControlBit(delControlBit(b))
+        }
+    </script>
+</head>
+<body>
+<p><input id="IM" type="text"> four bite to code</p>
+<input type="button" value="To code" onclick="code1()" >
+
+<p><input id="encoded" type="text" > encoded message</p>
+<input type="button" value="To encode" onclick="code2()">
+
+<p><input id="decodedCorrect" type="text"> correctly decoded message</p>
+
+<p><input id="decodedError" type="text"> correctly decoded message with controls bits</p>
+</body>
+</html>

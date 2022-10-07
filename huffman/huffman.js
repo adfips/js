@@ -47,7 +47,7 @@ input = fs.readFileSync(process.argv[2], "utf-8");
 
 alphFreq = alph(input)
 alphFreq = sorted(Object.entries(alphFreq).map(c => c));
-console.log("character frequency:",alphFreq,"\n")
+console.log("character frequency:", alphFreq,"\n")
 
 charCodes = codeTable(tree(alphFreq));
 if (Object.keys(charCodes).length === 1){
