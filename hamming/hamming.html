@@ -77,7 +77,8 @@
                 b[indexError-1] === "0" ? b = replace(b, indexError-1, "1") : b = replace(b, indexError-1, "0");
             }
             document.getElementById("decodedCorrect").value = delControlBit(b);
-            document.getElementById("decodedError").value =  addControlBit(delControlBit(b))
+            document.getElementById("decodedError").value =  addControlBit(delControlBit(b));
+            k === 0 ? document.getElementById("EUTI").value = "no error" :document.getElementById("EUTI").value = indexError;
         }
     </script>
 </head>
@@ -91,5 +92,8 @@
 <p><input id="decodedCorrect" type="text"> correctly decoded message</p>
 
 <p><input id="decodedError" type="text"> correctly decoded message with controls bits</p>
+
+<p><input id="EUTI" type="text"> error under the index</p>
+
 </body>
 </html>
