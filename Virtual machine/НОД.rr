@@ -1,0 +1,12 @@
+# Вычесление НОД
+input 0
+input 1
+jmps
+cmp 0 < 1
+diff 1 0 1
+cmp 0 > 1
+diff 0 1 0
+cmp 0 != 1
+jmpf
+output 0
+exit
