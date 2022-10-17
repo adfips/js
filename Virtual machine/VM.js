@@ -13,40 +13,43 @@ let q = 3;
 let sIP;
 while (mem [ip] !== "exit") {
     switch (mem[ip]) {
+        case "set":
+            mem[mem[ip + 1]] = mem[ip + 2]
+            ip += 3
         case "#":
-            while (mem[ip]!=="_"){
+            while (mem[ip] !== "_") {
                 ip++
             }
-        break
+            break
         case "_":
             ip++
             break
         case "jmps":
             sIP = ip
-            ip ++
+            ip++
             break
         case "jmpf":
             ip = sIP
             break
         case "cmp":
-            if  (mem [ip + 2] === ">" && Number(mem[mem[ip + 1]])>Number(mem [mem [ip + 3]])){
+            if (mem [ip + 2] === ">" && Number(mem[mem[ip + 1]]) > Number(mem [mem [ip + 3]])) {
                 ip += 4
                 break
             }
-            if  (mem [ip + 2] === "==" && Number(mem[mem[ip + 1]])===Number(mem [mem [ip + 3]])){
+            if (mem [ip + 2] === "==" && Number(mem[mem[ip + 1]]) === Number(mem [mem [ip + 3]])) {
                 ip += 4
                 break
             }
-            if  (mem [ip + 2] === "<" && Number(mem[mem[ip + 1]])<Number(mem [mem [ip + 3]])){
+            if (mem [ip + 2] === "<" && Number(mem[mem[ip + 1]]) < Number(mem [mem [ip + 3]])) {
                 ip += 4
                 break
             }
-            if  (mem [ip + 2] === "!=" && Number(mem[mem[ip + 1]])!==Number(mem [mem [ip + 3]])){
+            if (mem [ip + 2] === "!=" && Number(mem[mem[ip + 1]]) !== Number(mem [mem [ip + 3]])) {
                 ip += 4
                 break
-            }else {
+            } else {
                 ip += 5
-                while (mem[ip]!=="_"){
+                while (mem[ip] !== "_") {
                     ip++
                 }
                 break
