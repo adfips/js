@@ -8,6 +8,7 @@ for (let i of file.split("\r\n")) {
 let mem = memVar.concat(s.split(" "));
 mem.pop()
 
+
 let ip = 6;
 let q = 3;
 let sIP;
