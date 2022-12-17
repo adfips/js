@@ -1,4 +1,4 @@
-node .\float.mjs (option) <InputFile> <OutputFile>
+node .\float.mjs (option) (InputFile) (OutputFile)
  
 option:
 
