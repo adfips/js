@@ -1,6 +1,6 @@
 import fs from "fs";
 import {convert} from "./convert.mjs";
-import {add} from "./add.mjs";
+import {expres} from "./Expres.mjs";
 
 switch (process.argv[2]){
     case "convert":
@@ -16,7 +16,7 @@ switch (process.argv[2]){
                 break
             }
         }
-        fs.writeFileSync(process.argv[4],add(Num1,Num2))
+        fs.writeFileSync(process.argv[4],expres(Num1,Num2))
 
 }
 

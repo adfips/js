@@ -19,7 +19,7 @@ function convINumber(s){
 }
 
 
-export function add(Num1, Num2){
+export function expres(Num1, Num2){
     let binN1 = convert(Num1).split(" ")
     let binN2 = convert(Num2).split(" ")
     let binAdd = ["0", "00000000", "00000000000000000000000"]

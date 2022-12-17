@@ -4,7 +4,7 @@ set 1 1
 set 2 1
 input 3
 jmps
-add 0 1 1
+expres 0 1 1
 multi 1 2 2
 cmp 3 > 1
 jmpf

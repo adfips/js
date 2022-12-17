@@ -3,7 +3,7 @@
 input arg1 | ввод.
 output arg1 | ввыод.
 set arg1 value | в ячейку памяти arg1 положить value
-add arg1 arg2 arg3 | arg1,arg2 - слогаемые, arg3 - их сумма.
+expres arg1 arg2 arg3 | arg1,arg2 - слогаемые, arg3 - их сумма.
 diff arg1 arg2 arg3 | arg1,arg2 - уменьшаемое, вычетаемое соответственно, arg3 - их разность.
 multi arg1 arg2 arg3 | arg1,arg2 - множители, arg3 - их произведение.
 cmp arg1 >/</=/!= arg2 | сравнивает arg1 c arg2.
