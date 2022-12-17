@@ -1,5 +1,6 @@
-s = "ananas ananas";
-t = "ananas";
+fs = require("fs")
+let s = fs.readFileSync("text.txt","utf8");
+let t = "ananas";
 let countState = t.length // конечное множество состояний автомата;
 let state = 0; // начальное состояние автомата
 alph = []; // конечный алфавит, т. е. множество букв, которое может читать автомат;
