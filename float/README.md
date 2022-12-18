@@ -6,4 +6,4 @@ option:
   
   2)add - сложение/вычетание чисел
 
-Example: node .\float.mjs add .\InputAdd.txt .\OutputAdd.txt
+Example: node .\float.mjs add .\InputExpres.txt .\OutputExpres.txt
