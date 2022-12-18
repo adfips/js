@@ -14,7 +14,7 @@ function convINumber(s){
     for (let i = 1 ; i < arr[1].length+1; i++){
         sum += arr[1][i-1]*2**(-i)
     }
-    return s[0]==="0" ? parseInt(arr[0],2)+sum
+    return s[0]==="0" ? (parseInt(arr[0],2)+sum).toString()
         : "-"+(parseInt(arr[0],2)+sum)
 }
 
@@ -90,10 +90,8 @@ export function expres(Num1, Num2){
             else
                 binAdd[1] = addBinary(a[1], "-1".toString(2)).padStart(8,"0")
             binAdd[2] = add.slice(1, 24)
-            console.log(binAdd)
             return binAdd
         }
-        console.log(Num1,Num2)
         if (Math.abs(Num1) > Math.abs(Num2))
             return convINumber(f(binN1, binN2))
         else

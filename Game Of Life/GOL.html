@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game of Life</title>
+</head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    body {
+        display: block;
+        background: #E6DADA;
+        background: -webkit-linear-gradient(to top, #274046, #E6DADA);
+        background: linear-gradient(to top, #274046, #E6DADA);
+
+
+    }
+    h1{
+        text-align: center;
+        color: #274046;
+    }
+    .btn {
+        background-image: linear-gradient(to right, #274046 0%, #4B79A1  50%, #274046 100%);
+        margin: 10px;
+        padding: 15px 45px;
+        text-align: center;
+        text-transform: uppercase;
+        transition: 0.6s;
+        background-size: 200% auto;
+        color: white;
+        box-shadow: 0 0 10px #274046;
+        border-radius: 10px;
+        display: block;
+    }
+
+    .btn:hover {
+        background-position: right center;
+        color: #000;
+        text-decoration: none;
+    }
+
+
+
+
+</style>
+<body>
+    <h1> GAME OF LIFE</h1>
+    <canvas id="myCanvas" width="620px" height="620px" style="border:px solid #000000;border-radius: 10px">
+    </canvas>
+    <script>
+        function script() {
+
+            const fillSize = 25;
+            const cellSize = 25;
+            let currPop = new Array(fillSize);
+            let nextPop = new Array(fillSize);
+
+            for (let i = 0; i < fillSize; i++) {
+                currPop[i] = new Array(fillSize);
+                nextPop[i] = new Array(fillSize);
+            }
+
+            let c = document.getElementById("myCanvas");
+            let ctx = c.getContext("2d");
+
+            function init() {
+                for (let i = 0; i < fillSize; i++) {
+                    for (let j = 0; j < fillSize; j++) {
+                        currPop[i][j] = Math.round(Math.random())
+                    }
+                }
+            }
+
+            function draw() {
+                for (let i = 0; i < fillSize; i++) {
+                    for (let j = 0; j < fillSize; j++) {
+                        if (currPop[i][j] === 1)
+                            ctx.fillStyle = "#274046";
+                        else
+                            ctx.fillStyle = "#E6DADA";
+                        ctx.fillRect(i * cellSize, j * cellSize, cellSize, cellSize);
+                    }
+                }
+            }
+
+            function neighbourCont(i, j) {
+                let num = 0;
+                for (let l = -1; l <= 1; l++)
+                    for (let k = -1; k <= 1; k++)
+                        if ((l !== 0) || (k !== 0))
+                            num += currPop[(i + l + fillSize) % fillSize][(j + k + fillSize) % fillSize];
+                return num
+            }
+
+            function nextGen() {
+                for (let i = 0; i < fillSize; i++) {
+                    for (let j = 0; j < fillSize; j++) {
+                        nextPop[i][j] = 0;
+                        let nc = neighbourCont(i, j)
+                        if (((currPop[i][j] === 0) && (nc === 3)) || ((currPop[i][j] === 1) && (nc < 4) && (nc > 1)))
+                            nextPop[i][j] = 1;
+                    }
+                }
+                for (let i = 0; i < fillSize; i++) {
+                    for (let j = 0; j < fillSize; j++) {
+                        currPop[i][j] = nextPop[i][j];
+                    }
+                }
+            }
+
+            function step() {
+                nextGen();
+                draw();
+            }
+
+            init();
+            draw();
+            let tm = setInterval(step, 1000)
+        }
+    </script>
+    <p>
+        <button class="btn" onClick='script()'>Star Game</button>
+        <button class="btn" onclick="parent.location.reload(); return false;">Stop Game</button>
+    </p>
+
+</body>
+</html>

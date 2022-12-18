@@ -6,7 +6,7 @@ switch (process.argv[2]){
     case "convert":
         fs.writeFileSync(process.argv[4],convert(fs.readFileSync(process.argv[3],"utf-8")))
         break
-    case "add":
+    case "expression":
         let s = fs.readFileSync(process.argv[3], "utf-8").replace(/ /g, "")
         let Num1,Num2
         for (let i = 1; i < s.length; i++) {
