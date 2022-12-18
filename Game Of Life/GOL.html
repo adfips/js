@@ -8,16 +8,13 @@
     body {
         display: block;
         background: #E6DADA;
-        background: -webkit-linear-gradient(to top, #274046, #E6DADA);
         background: linear-gradient(to top, #274046, #E6DADA);
-
-
     }
     h1{
         text-align: center;
         color: #274046;
     }
-    .btn {
+    button {
         background-image: linear-gradient(to right, #274046 0%, #4B79A1  50%, #274046 100%);
         margin: 10px;
         padding: 15px 45px;
@@ -29,27 +26,56 @@
         box-shadow: 0 0 10px #274046;
         border-radius: 10px;
         display: block;
+        position: relative;
+        bottom: 620px;
+        left: 660px;
     }
 
-    .btn:hover {
+    button:hover {
         background-position: right center;
         color: #000;
         text-decoration: none;
     }
+    p{
+        background-image: linear-gradient(to right, #274046 0%, #4B79A1  50%, #274046 100%);
+        width: 118px;
+        margin: 10px;
+        padding: 5px 25px;
+        color: white;
+        border-radius: 10px;
+        position: relative;
+        bottom: 620px;
+        left: 660px;
+        text-align: center;
+        font-size: 17px;
+        border-width: 2px;
+        border-style: outset;
+        border-color: black;
+        box-shadow: 0 0 10px #274046;
 
+    }
+    input{
+        width: 118px;
+        text-align: center;
+        position: relative;
+        top: 2px;
+        padding: 0;
+        border-radius: 10px;
 
+    }
 
 
 </style>
 <body>
     <h1> GAME OF LIFE</h1>
-    <canvas id="myCanvas" width="620px" height="620px" style="border:px solid #000000;border-radius: 10px">
+    <canvas id="myCanvas" width="650px" height="650px" style="">
     </canvas>
     <script>
         function script() {
-
-            const fillSize = 25;
-            const cellSize = 25;
+            let size = document.getElementById("IM1").value
+            let speed = document.getElementById("IM2").value
+            const fillSize = (isNaN(size)||size==="") ? 64: size*1;
+            const cellSize = 10;
             let currPop = new Array(fillSize);
             let nextPop = new Array(fillSize);
 
@@ -113,13 +139,15 @@
 
             init();
             draw();
-            let tm = setInterval(step, 1000)
+            let tm = (isNaN(speed)||speed==="") ? setInterval(step, 1000): setInterval(step, speed);
         }
     </script>
-    <p>
-        <button class="btn" onClick='script()'>Star Game</button>
-        <button class="btn" onclick="parent.location.reload(); return false;">Stop Game</button>
-    </p>
+    <button class="btn1" onClick='script()'>Star Game</button>
+    <button class="btn2" onclick="parent.location.reload(); return false;">Stop Game</button>
+    <p>grid size<input id="IM1" type="text" maxlength="2"> </p>
+    <p>speed<input id="IM2" type="text" maxlength="4"> </p>
+
+
 
 </body>
 </html>
