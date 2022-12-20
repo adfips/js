@@ -7,7 +7,7 @@ function regular(number) {
     return (int + num.slice(2, shift - 1)).padEnd(shift, "0") + "." + num.slice(shift - 1)
 }
 export function convert(n) {
-    let number = (n).toString()//числа больше 10^20 записываются в научной нотации
+    let number = (eval(n)).toString()//числа больше 10^20 записываются в научной нотации
     let res = "";
 
     if (number[0] === "-") {
@@ -17,8 +17,6 @@ export function convert(n) {
         res += "0"
     if (number.indexOf("e") !== -1)//числа меньше 10^(-6) записываются в научной нотации
         number = regular(number)
-    if (isNaN(number * 1))
-        return res + " 11111111 00000000000000000000001"
 
     else if (Math.abs(number * 1) > (2 - 2 ** (-23)) * 2 ** 127)
         return res + " 11111111 00000000000000000000000"

@@ -2,8 +2,12 @@ import fs from "fs";
 import {convert} from "./convert.mjs";
 import {expres} from "./Expres.mjs";
 
-switch (process.argv[2]){
+switch (process.argv[2]) {
     case "convert":
+        if (isNaN(process.argv * 1)) {
+            fs.writeFileSync(process.argv[4],"0 11111111 00000000000000000000001")
+            break
+        }
         fs.writeFileSync(process.argv[4],convert(fs.readFileSync(process.argv[3],"utf-8")))
         break
     case "expression":

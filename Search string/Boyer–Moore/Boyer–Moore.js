@@ -1,45 +1,65 @@
-function rpr(subStr,arr=[]) {
-    let m = subStr.length;
-    let T = "";
-    for (let i = 0; i < m; i++) T += "*";
-    T += subStr;
-    for (let l = 0; l < m; l++) {
-        let maxK = 0;
-        for (let k = 2; k <= m - l; k++) {
-            let c = 0;
-            for (let j = 0; j < l; j++)
-                if (T[k + j] === "*" || T[k + j] === subStr[m - l + 1 + j]) c++;
-            if ((k > 1 && subStr[k - 1] !== subStr[m - l] && c === l) || (k <= 1 && c === l)) maxK = k;
-        }
-        arr.push(m-l+1-maxK);
-    }
-    return arr;
-}
+let arg = process.argv;
+let string = arg[2];
+let template = arg[3];
+console.log("Boyer-Moore Search result: " + BoyerMooreSearch(string, template));
 
-function BadSymbol(Str, subStr, arrFind = []) {
-    let m = subStr.length;
+function BoyerMooreSearch(string, template) {
+    let shift1 = 0;
+    let shift2 = GetShift2(template);
     let N = [];
-    for (let j = subStr.length-1, ind=0; j > 0 ; j--,ind++)
-        N[subStr[ind]] = j;
-    if (!N[subStr[m-1]]) N[subStr[m-1]] = m-1;
-    for (let i = 0; i < Str.length;) {
-        let l = 0;
-        while (Str.slice(i + m - l - 1, i + m) === subStr.slice(m - l - 1, m) && l !== Str.length)
-            l++;
-        let char = Str[i+m-l-1];
+    let m = template.length;
+    for (let j = 0; j < m; j++)
+        N[template.charAt(j)] = j + 1;
+    let res = [];
+    let i = 0;
+    while (i <= string.length - m) {
+        let l = Check(string, template, i + m - 1);
+        let char = string[i + m - l - 1];
         if (l === m) {
-            arrFind.push(i);
-            i += N[char];
-        } else {
-            if (N[char])
-                i += N[char];
-            else
-                i += m;
-        }
+            res.push(i)
+            shift1 = 1;
+        } else if (!N[char])
+            shift1 = m;
+        else
+            shift1 = Math.max(1, m - N[char] - l)
+        i += Math.max(shift1, shift2[l]);
     }
-    return arrFind;
+    if (res.length === 0)
+        return -1;
+    else
+        return res;
 }
 
+function GetShift2(template) {
+    let shift2 = [];
+    let newT = "";
+    let suffix = "";
+    for (let i = 0; i <= template.length; i++)
+        newT += '*'
 
-console.log(BadSymbol("abccabcbbccabcdabcdabc","abcdabc"))
+    newT += template;
+    let badSymbol = template[template.length - 1];
+    for (let i = 0; i <= template.length; i++) {
+        if (i !== 0)
+            suffix = template[template.length - i] + suffix;
+        badSymbol = template[template.length - i - 1];
+        for (let j = newT.length - 2; j >= 0; j--) {
+            if (Check(newT, suffix, j) === suffix.length && newT[j - suffix.length] !== badSymbol) {
+                shift2.push(newT.length - j - 1);
+                break;
+            }
+        }
+    }
+    return shift2;
+}
 
+function Check(string, template, index) {
+    let l = 0;
+    let tIndex = template.length - 1;
+    while ((string[index] === template[tIndex] || string[index] === '*') && l < template.length) {
+        l++
+        tIndex--;
+        index--;
+    }
+    return l;
+}
