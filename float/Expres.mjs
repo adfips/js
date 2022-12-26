@@ -26,22 +26,21 @@ export function expres(Num1, Num2){
     let del = parseInt(Math.abs(addBinary(binN1[1], -binN2[1])), 2)
     let nan = "01111111100000000000000000000001"
     let inf = "1111111100000000000000000000000"
-
     if (binN1.join("") === nan || binN2.join("") === nan)
-        return NaN
+        return nan
 
     else if (binN1.join("").slice(1) === inf && binN2.join("").slice(1) === inf)
-        return binN1 === binN2 ? Infinity : NaN
+        return binN1 === binN2 ? "0"+inf : nan
 
     else if (binN1.join("").slice(1) === inf)
-        return Num1 > 0 ? Infinity : -Infinity
+        return Num1 > 0 ? "0"+inf : "1"+inf
 
     else if (binN2.join("").slice(1) === inf)
-        return Num1 > 0 ? Infinity : -Infinity
+        return Num2 > 0 ? "0"+inf : "1"+inf
 
     else if (Math.abs(Num1) === Math.abs(Num2)) {
         if (Num1 !== Num2)
-            return 0
+            return binAdd.join("")
         else {
             binAdd[0] = binN1[0]
             binAdd[1] = addBinary(binN1[1], "1")

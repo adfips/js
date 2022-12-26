@@ -17,8 +17,7 @@ export function convert(n) {
         res += "0"
     if (number.indexOf("e") !== -1)//числа меньше 10^(-6) записываются в научной нотации
         number = regular(number)
-
-    else if (Math.abs(number * 1) > (2 - 2 ** (-23)) * 2 ** 127)
+    if (Math.abs(number * 1) > (2 - 2 ** (-23)) * 2 ** 127)
         return res + " 11111111 00000000000000000000000"
 
     else if (number * 1 >= 2 ** (-126)) {
